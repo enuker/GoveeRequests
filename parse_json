@@ -1,0 +1,29 @@
+import json
+
+# Step 1: Open the JSON file
+with open('params.json', 'r') as file:
+    # Step 2: Load the JSON data
+    data = json.load(file)
+
+# Step 3: Print the loaded data
+print("Loaded Data:")
+print(json.dumps(data, indent=2))  # Pretty print the entire JSON structure
+
+# Accessing specific values
+print(f"\nRequest ID: {data['requestId']}")
+print(f"Message: {data['msg']}")
+print(f"Response Code: {data['code']}")
+print(f"SKU: {data['payload']['sku']}")
+print(f"Device: {data['payload']['device']}")
+
+# Accessing capabilities
+capabilities = data['payload']['capabilities']
+print("\nCapabilities:")
+for capability in capabilities:
+    print(f"  Type: {capability['type']}, Instance: {capability['instance']}")
+    # Accessing parameters if needed
+    if 'parameters' in capability:
+        print(f"    Data Type: {capability['parameters']['dataType']}")
+        options = capability['parameters']['options']
+        for option in options:
+            print(f"    Option Name: {option['name']}, ID: {option['value']['id']}, Param ID: {option['value']['paramId']}")
